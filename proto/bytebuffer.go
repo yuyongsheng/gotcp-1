@@ -32,10 +32,14 @@ func (self *ByteBuffer) GetCapacity() int {
 }
 
 func (self *ByteBuffer) Reserve(cap int) {
-	if len(self.buf) >= cap {
+	capacity := self.GetCapacity()
+	if capacity >= cap {
 		return
 	}
-	var newBuf = make([]byte, cap)
+	for capacity < cap {
+		capacity = (capacity + 1) * 2
+	}
+	var newBuf = make([]byte, capacity)
 	copy(newBuf, self.buf)
 }
 
