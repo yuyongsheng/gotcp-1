@@ -38,7 +38,7 @@ func TestByteBuffer(t *testing.T) {
 		t.Error("FAILED")
 	}
 
-	if proto.capacity != 20 {
+	if proto.GetCapacity() != 20 {
 		t.Error("FAILED")
 	}
 }

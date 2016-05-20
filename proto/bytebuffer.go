@@ -12,16 +12,14 @@ type ByteBuffer struct {
 	order binary.ByteOrder
 	readPos int
 	writePos int
-	capacity int
 }
 
 func NewByteBuffer(cap int) *ByteBuffer {
 	return &ByteBuffer {
 		buf: make([]byte, cap),
-		order: binary.BigEndian,
+		order: binary.LittleEndian,
 		readPos: 0,
 		writePos: 0,
-		capacity: cap,
 	}
 }
 
@@ -30,16 +28,15 @@ func (self *ByteBuffer) GetBuf() []byte {
 }
 
 func (self *ByteBuffer) GetCapacity() int {
-	return self.capacity
+	return len(self.buf)
 }
 
 func (self *ByteBuffer) Reserve(cap int) {
-	if self.capacity >= cap {
+	if len(self.buf) >= cap {
 		return
 	}
 	var newBuf = make([]byte, cap)
 	copy(newBuf, self.buf)
-	self.capacity = cap
 }
 
 func (self *ByteBuffer) Reset() {
@@ -70,7 +67,7 @@ func (self *ByteBuffer) GetBool() bool {
 }
 
 func (self *ByteBuffer) PutBool(v bool) {
-	if v == true {
+	if v {
 		self.buf[self.writePos] = 1
 	} else {
 		self.buf[self.writePos] = 0
