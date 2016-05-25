@@ -58,6 +58,10 @@ func (self *ByteBuf) GetWritableBuf(n int) []byte {
 	return self.buf[self.writeIndex:self.writeIndex + n]
 }
 
+func (self *ByteBuf) GetWritedBuf() []byte {
+	return self.buf[:self.writeIndex]
+}
+
 func (self *ByteBuf) GetReadableLen() int {
 	return self.writeIndex - self.readIndex
 }
