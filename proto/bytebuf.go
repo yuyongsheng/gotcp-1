@@ -29,19 +29,19 @@ func (self *ByteBuf) GetBuf() []byte {
 	return self.buf
 }
 
-func (self *ByteBuf) Capacity() int {
+func (self *ByteBuf) GetCapacity() int {
 	return len(self.buf)
 }
 
 func (self *ByteBuf) Reserve(cap int) {
-	capacity := self.Capacity()
-	if capacity >= cap {
+	GetCapacity := self.GetCapacity()
+	if GetCapacity >= cap {
 		return
 	}
-	for capacity < cap {
-		capacity = (capacity + 1) * 2
+	for GetCapacity < cap {
+		GetCapacity = (GetCapacity + 1) * 2
 	}
-	var newBuf = make([]byte, capacity)
+	var newBuf = make([]byte, GetCapacity)
 	copy(newBuf, self.buf)
 }
 
@@ -59,7 +59,7 @@ func (self *ByteBuf) GetReadableBytes() int {
 }
 
 func (self *ByteBuf) GetWritableBytes() int {
-	return self.Capacity() - self.writeIndex
+	return self.GetCapacity() - self.writeIndex
 }
 
 func (self *ByteBuf) MarkReadIndex() {
