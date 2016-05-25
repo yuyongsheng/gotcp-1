@@ -8,24 +8,24 @@ import (
 func TestByteBuf(t *testing.T) {
 	var proto = NewByteBuf(20)
 
-	proto.PutUint32(9000)
-	proto.PutInt32(-8000)
-	proto.PutBool(true)
-	proto.PutFloat32(3.141592)
+	proto.WriteUint32(9000)
+	proto.WriteInt32(-8000)
+	proto.WriteBool(true)
+	proto.WriteFloat32(3.141592)
 
-	if proto.GetUint32() != 9000 {
+	if proto.ReadUint32() != 9000 {
 		t.Error("FAILED")
 	}
 
-	if proto.GetInt32() != -8000 {
+	if proto.ReadInt32() != -8000 {
 		t.Error("FAILED")
 	}
 
-	if proto.GetBool() != true {
+	if proto.ReadBool() != true {
 		t.Error("FAILED")
 	}
 
-	if f := proto.GetFloat32(); f != 3.141592 {
+	if f := proto.ReadFloat32(); f != 3.141592 {
 		s := strconv.FormatFloat(float64(f), 'E', -1, 32)
 		t.Error("FAILED:" + s)
 	}
