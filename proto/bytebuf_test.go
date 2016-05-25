@@ -1,12 +1,12 @@
-package tcp
+package proto
 
 import (
 	"testing"
 	"strconv"
 )
 
-func TestByteBuffer(t *testing.T) {
-	var proto = NewByteBuffer(20)
+func TestByteBuf(t *testing.T) {
+	var proto = NewByteBuf(20)
 
 	proto.PutUint32(9000)
 	proto.PutInt32(-8000)
@@ -30,15 +30,15 @@ func TestByteBuffer(t *testing.T) {
 		t.Error("FAILED:" + s)
 	}
 
-	if proto.writePos != 13 {
+	if proto.writeIndex != 13 {
 		t.Error("FAILED")
 	}
 
-	if proto.readPos != 13 {
+	if proto.readIndex != 13 {
 		t.Error("FAILED")
 	}
 
-	if proto.GetCapacity() != 20 {
+	if proto.Capacity() != 20 {
 		t.Error("FAILED")
 	}
 }
